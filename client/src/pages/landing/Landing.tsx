@@ -1,10 +1,13 @@
 import { Button } from '@/components/ui/button';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { useState } from 'react';
 import reactLogo from '../../assets/react.svg';
 import viteLogo from '/vite.svg';
 
 export default function Landing() {
   const [count, setCount] = useState(0);
+  const { user } = useAuthContext();
+  console.log(user);
 
   return (
     <>
