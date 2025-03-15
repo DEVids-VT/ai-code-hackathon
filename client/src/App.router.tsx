@@ -14,7 +14,7 @@ export const AppRouter = createBrowserRouter(
       path={PageRoute.LANDING}
       element={<App />}
       handle={{
-        crumb: () => '',
+        crumb: () => 'Something',
       }}>
       <Route
         index
