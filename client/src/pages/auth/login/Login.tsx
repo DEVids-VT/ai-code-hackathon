@@ -1,4 +1,5 @@
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useToastNotification } from '@/hooks/useToastNotification';
 import { PageRoute } from '@/types';
 import { supabase } from '@/utils/supabaseClient';
 import { useForm } from 'react-hook-form';
@@ -12,6 +13,7 @@ interface LoginDetails {
 export default function Login() {
   const navigate = useNavigate();
   const { setSession } = useAuthContext();
+  const { emitToast } = useToastNotification();
 
   const {
     register,
@@ -27,7 +29,7 @@ export default function Login() {
     });
 
     if (error) {
-      console.error('Error logging in:', error.message);
+      emitToast(error.message, 'error');
       return;
     }
 

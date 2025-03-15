@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useToastNotification } from '@/hooks/useToastNotification';
 import { useState } from 'react';
 import reactLogo from '../../assets/react.svg';
 import viteLogo from '/vite.svg';
@@ -8,11 +9,18 @@ export default function Landing() {
   const [count, setCount] = useState(0);
   const { user } = useAuthContext();
   console.log(user);
+  const { emitToast } = useToastNotification();
 
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-svh">
-        <Button className="!bg-red-500">Click me</Button>
+        <Button
+          className="!bg-red-500"
+          onClick={() => {
+            emitToast('Hello world', 'info');
+          }}>
+          Click me
+        </Button>
       </div>
       <div className="bg-black">
         <a href="https://vite.dev" target="_blank">
