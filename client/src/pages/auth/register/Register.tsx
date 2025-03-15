@@ -3,7 +3,7 @@ import { useToastNotification } from '@/hooks/useToastNotification';
 import { PageRoute } from '@/types';
 import { supabase } from '@/utils/supabaseClient';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 
 interface RegisterDetails {
   email: string;
@@ -14,6 +14,9 @@ export default function Register() {
   const navigate = useNavigate();
   const { setSession } = useAuthContext();
   const { emitToast } = useToastNotification();
+
+  const [searchParams, _] = useSearchParams();
+  const redirectLink = searchParams.get('redirect');
 
   const {
     register,
@@ -35,7 +38,7 @@ export default function Register() {
 
     setSession(data.session);
     reset();
-    navigate(PageRoute.LANDING);
+    navigate(`${PageRoute.LOGIN}?redirect=${redirectLink}`);
   });
 
   return (
@@ -52,7 +55,7 @@ export default function Register() {
 
         <input type="submit" />
       </form>
-      <Link to={PageRoute.LOGIN}>Login</Link>
+      <Link to={`${PageRoute.LOGIN}?redirect=${redirectLink}`}>Login</Link>
     </>
   );
 }

@@ -5,6 +5,7 @@ import {
 } from 'react-router';
 import App from './App';
 import Logout from './components/common/auth/logout/Logout';
+import ProtectedRoute from './components/common/auth/protected-route/ProtectedRoute';
 import Login from './pages/auth/login/Login';
 import Register from './pages/auth/register/Register';
 import Landing from './pages/landing/Landing';
@@ -19,28 +20,38 @@ export const AppRouter = createBrowserRouter(
       handle={{
         crumb: () => 'Something',
       }}>
-      <Route
-        path={PageRoute.LOGIN}
-        handle={{
-          crumb: () => 'Login',
-        }}
-        element={<Login />}
-      />
-      <Route
-        path={PageRoute.REGISTER}
-        handle={{
-          crumb: () => 'Register',
-        }}
-        element={<Register />}
-      />
-      <Route path={PageRoute.LOGOUT} element={<Logout />} />
-      <Route
-        index
-        element={<Landing />}
-        handle={{
-          crumb: () => 'Landing',
-        }}
-      />
+      {/* Everyone */}
+
+      {/* Only guests */}
+      <Route element={<ProtectedRoute onlyUser={false} />}>
+        <Route
+          path={PageRoute.LOGIN}
+          handle={{
+            crumb: () => 'Login',
+          }}
+          element={<Login />}
+        />
+        <Route
+          path={PageRoute.REGISTER}
+          handle={{
+            crumb: () => 'Register',
+          }}
+          element={<Register />}
+        />
+      </Route>
+
+      {/* Only logged users */}
+      <Route element={<ProtectedRoute onlyUser={true} />}>
+        <Route
+          index
+          element={<Landing />}
+          handle={{
+            crumb: () => 'Landing',
+          }}
+        />
+        <Route path={PageRoute.LOGOUT} element={<Logout />} />
+      </Route>
+
       <Route
         path="*"
         handle={{
