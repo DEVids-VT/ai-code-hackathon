@@ -1,38 +1,32 @@
 import { useUserCredentials } from '@/hooks/useUserCredentials';
-import { useCallback } from 'react';
-import { Outlet, To, useLocation } from 'react-router';
+import { PageRoute, UserRole } from '@/types';
+import { Navigate, Outlet } from 'react-router';
 
 type ProtectedRouteProps = {
-  onlyUser: boolean;
+  requiredRoles: UserRole[] | null;
 };
 
 // The component that protects a route based on the user data
 // whether he is logged or not, etc.
-export default function ProtectedRoute({ onlyUser }: ProtectedRouteProps) {
-  const { isAuthenticated } = useUserCredentials();
-  const { pathname } = useLocation();
+export default function ProtectedRoute({ requiredRoles }: ProtectedRouteProps) {
+  const { user } = useUserCredentials();
 
-  // Attach redirectTo search param
-  const generateNavPath = useCallback(
-    (path: string) => {
-      const navPath: To = {
-        pathname: path,
-        search: `?redirect=${pathname}`,
-      };
-      return navPath;
-    },
-    [pathname]
-  );
+  let passThrough = requiredRoles
+    ? !requiredRoles.some((role) => !user.roles.includes(role))
+    : true;
 
-  const passThrough = isAuthenticated === onlyUser;
+  passThrough =
+    passThrough ||
+    ((requiredRoles === null || requiredRoles.length === 0) &&
+      user.roles.length === 0);
 
-  // if (onlyUser && !passThrough && pathname !== logoutPath) {
-  //   return <Navigate to={generateNavPath(loginPath)} />;
-  // }
+  if (!passThrough && !user.roles.includes(UserRole.ACTIVATED)) {
+    return <Navigate to={PageRoute.CHECKOUT} />;
+  }
 
-  // if (!passThrough) {
-  //   return <Navigate to={PageRoute.LANDING} />;
-  // }
+  if (!passThrough) {
+    return <Navigate to={PageRoute.LANDING} />;
+  }
 
   return <Outlet />;
 }

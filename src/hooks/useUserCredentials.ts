@@ -18,7 +18,7 @@ export const useUserCredentials = (): IUseUserCredentialsReturnData => {
       name: user?.name as string,
       email: user?.email as string,
       picture: user?.picture as string,
-      roles: user?.[`${DOMAIN}/roles`] as UserRole[],
+      roles: (user?.[`${DOMAIN}/roles`] || []) as UserRole[],
     },
     isAuthenticated,
   };
