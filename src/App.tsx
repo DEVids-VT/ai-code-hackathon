@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { Outlet, useLocation } from 'react-router';
 import { Bounce, ToastContainer } from 'react-toastify';
 import './App.css';
@@ -9,10 +10,14 @@ import QueryClientProvider from './components/common/query-client-provider/Query
 import Sidebar from './components/common/sidebar/Sidebar';
 import { TooltipProvider } from './components/ui/tooltip';
 import { OnboardingProvider } from './contexts/OnboardingContext';
+import { useOrigin } from './hooks/useOrigin';
 import { PageRoute } from './types';
 
 function App() {
   const location = useLocation();
+  const { logout } = useAuth0();
+  const origin = useOrigin();
+
   const hideSidebar =
     location.pathname === PageRoute.CHECKOUT ||
     location.pathname === PageRoute.ACTIVATION ||

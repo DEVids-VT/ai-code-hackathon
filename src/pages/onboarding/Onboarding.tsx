@@ -1,3 +1,4 @@
+import LogoutButton from '@/components/common/logout-button/LogoutButton';
 import FlameButton from '@/components/FlameButton';
 import ProgressIndicator from '@/components/ProgressIndicator';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -248,60 +249,62 @@ const Onboarding = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-black">
-      <div className="flex-1 flex flex-col items-center justify-center py-10 px-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <img
-              src="/lovable-uploads/5bd49670-0867-4c7c-8190-423e52c722ce.png"
-              alt="HoTeach Logo"
-              className="h-10 object-contain mx-auto mb-6"
-            />
-            <ProgressIndicator steps={steps} className="mb-10" />
-            <h1 className="text-3xl font-bold mb-2">Set Up Your Profile</h1>
-            <p className="text-muted-foreground">
-              Help us create your personalized learning experience
-            </p>
-          </div>
-
-          <div className="glass-card rounded-xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold">
-                {onboardingSteps[currentStep].title}
-              </h2>
-              <span className="text-sm text-muted-foreground">
-                Step {currentStep + 1} of {onboardingSteps.length}
-              </span>
+    <LogoutButton>
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-black">
+        <div className="flex-1 flex flex-col items-center justify-center py-10 px-4">
+          <div className="w-full max-w-md">
+            <div className="text-center mb-8">
+              <img
+                src="/lovable-uploads/5bd49670-0867-4c7c-8190-423e52c722ce.png"
+                alt="HoTeach Logo"
+                className="h-10 object-contain mx-auto mb-6"
+              />
+              <ProgressIndicator steps={steps} className="mb-10" />
+              <h1 className="text-3xl font-bold mb-2">Set Up Your Profile</h1>
+              <p className="text-muted-foreground">
+                Help us create your personalized learning experience
+              </p>
             </div>
 
-            {onboardingSteps[currentStep].fields}
+            <div className="glass-card rounded-xl p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold">
+                  {onboardingSteps[currentStep].title}
+                </h2>
+                <span className="text-sm text-muted-foreground">
+                  Step {currentStep + 1} of {onboardingSteps.length}
+                </span>
+              </div>
 
-            <div className="flex items-center justify-between mt-8">
-              <button
-                onClick={handleBack}
-                disabled={currentStep === 0}
-                className={`text-sm font-medium ${
-                  currentStep === 0
-                    ? 'text-muted-foreground cursor-not-allowed'
-                    : 'text-hotteach-red hover:text-hotteach-red/80'
-                }`}>
-                Back
-              </button>
+              {onboardingSteps[currentStep].fields}
 
-              <FlameButton
-                onClick={handleNext}
-                variant="secondary"
-                size="md"
-                isLoading={isSubmitting}>
-                {currentStep < onboardingSteps.length - 1
-                  ? 'Next'
-                  : 'Complete Profile'}
-              </FlameButton>
+              <div className="flex items-center justify-between mt-8">
+                <button
+                  onClick={handleBack}
+                  disabled={currentStep === 0}
+                  className={`text-sm font-medium ${
+                    currentStep === 0
+                      ? 'text-muted-foreground cursor-not-allowed'
+                      : 'text-hotteach-red hover:text-hotteach-red/80'
+                  }`}>
+                  Back
+                </button>
+
+                <FlameButton
+                  onClick={handleNext}
+                  variant="secondary"
+                  size="md"
+                  isLoading={isSubmitting}>
+                  {currentStep < onboardingSteps.length - 1
+                    ? 'Next'
+                    : 'Complete Profile'}
+                </FlameButton>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </LogoutButton>
   );
 };
 
