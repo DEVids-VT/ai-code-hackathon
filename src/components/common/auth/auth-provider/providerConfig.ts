@@ -20,6 +20,7 @@ export const providerConfig: Auth0ProviderOptions = {
   cacheLocation: 'localstorage',
   authorizationParams: {
     redirect_uri: window.location.origin,
-    scope: 'openid profile email',
+    audience: 'https://hoteachaudience.com',
+    scope: 'openid profile email hoteach:default',
   },
 };
