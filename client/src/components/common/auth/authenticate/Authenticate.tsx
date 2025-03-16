@@ -1,28 +1,14 @@
-import { useAuthContext } from '@/contexts/AuthContext';
-import { supabase } from '@/utils/supabaseClient';
-import { PropsWithChildren, useEffect, useState } from 'react';
-import LoadingSpinner from '../../loading-spinner/LoadingSpinner';
+import { useAuth0 } from '@auth0/auth0-react';
+import { PropsWithChildren, useEffect } from 'react';
 
 export default function Authenticate({ children }: PropsWithChildren) {
-  const [loading, setLoading] = useState(true);
-  const { setSession } = useAuthContext();
+  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
-    const getSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect();
+    }
+  }, [isAuthenticated, isLoading, loginWithRedirect]);
 
-      setSession(session);
-      setLoading(false);
-    };
-
-    getSession();
-  }, []);
-
-  if (loading) {
-    return <LoadingSpinner size={80} />;
-  }
-
-  return <>{children}</>;
+  return isAuthenticated ? <>{children}</> : null;
 }

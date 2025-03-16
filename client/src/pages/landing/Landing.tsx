@@ -1,15 +1,13 @@
 import { Button } from '@/components/ui/button';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { useToastNotification } from '@/hooks/useToastNotification';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
 import reactLogo from '../../assets/react.svg';
 import viteLogo from '/vite.svg';
-
 export default function Landing() {
   const [count, setCount] = useState(0);
-  const { user } = useAuthContext();
-  console.log(user);
   const { emitToast } = useToastNotification();
+  const { logout } = useAuth0();
 
   return (
     <>
@@ -18,6 +16,7 @@ export default function Landing() {
           className="!bg-red-500"
           onClick={() => {
             emitToast('Hello world', 'info');
+            logout({ logoutParams: { returnTo: 'http://localhost:5173' } });
           }}>
           Click me
         </Button>

@@ -1,17 +1,17 @@
 import { Outlet } from 'react-router';
 import { Bounce, ToastContainer } from 'react-toastify';
 import './App.css';
+import Auth0Provider from './components/common/auth/auth-provider/Auth0Provider';
 import Authenticate from './components/common/auth/authenticate/Authenticate';
 import Breadcrumb from './components/common/breadcrumb/Breadcrumb';
 import ErrorBoundary from './components/common/error-boundary/ErrorBoundary';
 import LoadingSpinner from './components/common/loading-spinner/LoadingSpinner';
 import QueryClientProvider from './components/common/query-client-provider/QueryClientProvider';
-import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
     <ErrorBoundary>
-      <AuthProvider>
+      <Auth0Provider>
         <Authenticate>
           <QueryClientProvider>
             <ToastContainer
@@ -38,7 +38,7 @@ function App() {
             </main>
           </QueryClientProvider>
         </Authenticate>
-      </AuthProvider>
+      </Auth0Provider>
     </ErrorBoundary>
   );
 }
