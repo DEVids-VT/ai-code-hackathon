@@ -3,3 +3,305 @@
 @plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
+
+@layer base {
+  :root {
+    --border: 0, 0%, 90%;
+    --input: 0, 0%, 95%;
+    --ring: 220, 90%, 56%;
+    --background: 0, 0%, 100%;
+    --foreground: 222.2, 47.4%, 11.2%;
+    --primary: 220, 90%, 56%;
+    --primary-foreground: 0, 0%, 100%;
+    --secondary: 240, 5%, 96%;
+    --secondary-foreground: 240, 6%, 10%;
+    --destructive: 0, 84.2%, 60.2%;
+    --destructive-foreground: 0, 0%, 100%;
+    --muted: 240, 4.8%, 95.9%;
+    --muted-foreground: 240, 3.8%, 46.1%;
+    --accent: 240, 6%, 90%;
+    --accent-foreground: 240, 5.9%, 10%;
+    --popover: 0, 0%, 100%;
+    --popover-foreground: 240, 10%, 3.9%;
+    --card: 0, 0%, 100%;
+    --card-foreground: 240, 10%, 3.9%;
+
+    --sidebar-background: 220, 10%, 14%;
+    --sidebar-foreground: 0, 0%, 100%;
+    --sidebar-primary: 220, 90%, 56%;
+    --sidebar-primary-foreground: 0, 0%, 100%;
+    --sidebar-accent: 240, 5%, 96%;
+    --sidebar-accent-foreground: 240, 6%, 10%;
+    --sidebar-border: 0, 0%, 90%;
+    --sidebar-ring: 220, 90%, 56%;
+
+    /* Custom Hotteach Colors */
+    --hotteach-yellow: #ffe01b;
+    --hotteach-red: #ff3a00;
+    --hotteach-dark: #1a1a1a;
+    --hotteach-light: #ffffff;
+    --hotteach-glass: rgba(255, 255, 255, 0.1);
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer utilities {
+  .container {
+    max-width: 1400px;
+    padding: 2rem;
+    margin: 0 auto;
+  }
+
+  .border-lg {
+    border-radius: var(--radius);
+  }
+  .border-md {
+    border-radius: calc(var(--radius) - 2px);
+  }
+  .border-sm {
+    border-radius: calc(var(--radius) - 4px);
+  }
+
+  /* Custom Colors */
+  .text-border {
+    color: hsl(var(--border));
+  }
+  .text-input {
+    color: hsl(var(--input));
+  }
+  .text-ring {
+    color: hsl(var(--ring));
+  }
+  .text-background {
+    color: hsl(var(--background));
+  }
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
+  .text-primary {
+    color: hsl(var(--primary));
+  }
+  .text-secondary {
+    color: hsl(var(--secondary));
+  }
+  .text-destructive {
+    color: hsl(var(--destructive));
+  }
+  .text-muted {
+    color: hsl(var(--muted));
+  }
+  .text-accent {
+    color: hsl(var(--accent));
+  }
+  .text-popover {
+    color: hsl(var(--popover));
+  }
+  .text-card {
+    color: hsl(var(--card));
+  }
+
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+  .bg-secondary {
+    background-color: hsl(var(--secondary));
+  }
+  .bg-destructive {
+    background-color: hsl(var(--destructive));
+  }
+  .bg-muted {
+    background-color: hsl(var(--muted));
+  }
+  .bg-accent {
+    background-color: hsl(var(--accent));
+  }
+  .bg-popover {
+    background-color: hsl(var(--popover));
+  }
+  .bg-card {
+    background-color: hsl(var(--card));
+  }
+
+  /* Hotteach Colors */
+  .text-hotteach-yellow {
+    color: var(--hotteach-yellow);
+  }
+  .text-hotteach-red {
+    color: var(--hotteach-red);
+  }
+  .text-hotteach-dark {
+    color: var(--hotteach-dark);
+  }
+  .text-hotteach-light {
+    color: var(--hotteach-light);
+  }
+  .bg-hotteach-yellow {
+    background-color: var(--hotteach-yellow);
+  }
+  .bg-hotteach-red {
+    background-color: var(--hotteach-red);
+  }
+  .bg-hotteach-dark {
+    background-color: var(--hotteach-dark);
+  }
+  .bg-hotteach-light {
+    background-color: var(--hotteach-light);
+  }
+  .bg-hotteach-glass {
+    background-color: var(--hotteach-glass);
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes flame-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes flame-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-down {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+  .animate-flame-bounce {
+    animation: flame-bounce 2s ease-in-out infinite;
+  }
+  .animate-flame-pulse {
+    animation: flame-pulse 3s ease-in-out infinite;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+  .animate-fade-out {
+    animation: fade-out 0.5s ease-out forwards;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+  .animate-slide-down {
+    animation: slide-down 0.5s ease-out forwards;
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .bg-gradient-radial {
+    background-image: radial-gradient(var(--tw-gradient-stops));
+  }
+
+  .bg-gradient-conic {
+    background-image: conic-gradient(
+      from 180deg at 50% 50%,
+      var(--tw-gradient-stops)
+    );
+  }
+
+  .bg-glass-morphism {
+    background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
+  }
+}

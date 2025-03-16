@@ -4,9 +4,11 @@ import {
   Route,
 } from 'react-router';
 import App from './App';
+import Checkout from './pages/checkout/Checkout';
 import Dashboard from './pages/dashboard/Dashboard';
 import Landing from './pages/landing/Landing';
 import NotFound from './pages/not-found/NotFound';
+import Onboarding from './pages/onboarding/Onboarding';
 import ProjectDetail from './pages/project-detail/ProjectDetail';
 import { PageRoute } from './types';
 
@@ -20,6 +22,22 @@ export const AppRouter = createBrowserRouter(
       }}>
       {/* Everyone */}
       <Route index element={<Landing />} />
+
+      <Route
+        path={PageRoute.CHECKOUT}
+        element={<Checkout />}
+        handle={{
+          crumb: () => 'Checkout',
+        }}
+      />
+
+      <Route
+        path={PageRoute.ONBOARDING}
+        element={<Onboarding />}
+        handle={{
+          crumb: () => 'Dashboard',
+        }}
+      />
 
       <Route
         path={PageRoute.DASHBOARD}
