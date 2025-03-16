@@ -112,40 +112,6 @@ const Checkout = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="glass-card rounded-xl p-6">
-            <div className="mb-5">
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={handleEmailChange}
-                className={`w-full p-3 rounded-lg border ${
-                  !isValidEmail ? 'border-red-500' : 'border-border'
-                } focus:outline-none focus:ring-2 focus:ring-hotteach-red/30`}
-                placeholder="you@example.com"
-                required
-              />
-              {!isValidEmail && (
-                <p className="text-red-500 text-xs mt-1">
-                  Please enter a valid email address
-                </p>
-              )}
-            </div>
-
-            <div className="mb-5">
-              <label htmlFor="card" className="block text-sm font-medium mb-2">
-                Card Information
-              </label>
-              <div className="w-full p-3 rounded-lg border border-border bg-muted/50 text-center text-muted-foreground">
-                [Secure Payment Form Placeholder]
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                This is a demo. No actual payment will be processed.
-              </p>
-            </div>
-
             <FlameButton
               type="submit"
               variant="secondary"
@@ -160,14 +126,6 @@ const Checkout = () => {
               Privacy Policy.
             </p>
           </form>
-
-          <div className="mt-6 text-center">
-            <button
-              onClick={() => navigate('/')}
-              className="text-sm text-muted-foreground hover:text-hotteach-red transition-colors">
-              ← Return to Home
-            </button>
-          </div>
         </div>
       </div>
     </div>
