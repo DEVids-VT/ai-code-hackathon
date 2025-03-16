@@ -4,22 +4,22 @@ import { useUserCredentials } from '@/hooks/useUserCredentials';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 interface UserPreferences {
-  userId: string;
-  name: string;
-  ageGroup: string;
-  location: string;
-  language: string;
-  education: string;
-  goals: string;
-  learningStyle: string;
-  pace: string;
-  jobRole: string;
-  skillLevel: string;
-  timeAvailability: string;
-  schedule: string;
-  motivators: string[];
-  programmingLanguages: string[];
-  technologies: string[];
+  UserId: string;
+  Name: string;
+  AgeGroup: string;
+  Location: string;
+  Language: string;
+  Education: string;
+  Goals: string;
+  LearningStyle: string;
+  Pace: string;
+  JobRole: string;
+  SkillLevel: string;
+  TimeAvailability: string;
+  Schedule: string;
+  Motivators: string[];
+  ProgrammingLanguages: string[];
+  Technologies: string[];
 }
 
 const GenerateLearningPath: React.FC = () => {
@@ -27,22 +27,22 @@ const GenerateLearningPath: React.FC = () => {
   const { emitToast } = useToastNotification();
 
   const [formData, setFormData] = useState<UserPreferences>({
-    userId: '',
-    name: '',
-    ageGroup: '',
-    location: '',
-    language: '',
-    education: '',
-    goals: '',
-    learningStyle: '',
-    pace: '',
-    jobRole: '',
-    skillLevel: '',
-    timeAvailability: '',
-    schedule: '',
-    motivators: [],
-    programmingLanguages: [],
-    technologies: [],
+    UserId: '',
+    Name: '',
+    AgeGroup: '',
+    Location: '',
+    Language: '',
+    Education: '',
+    Goals: '',
+    LearningStyle: '',
+    Pace: '',
+    JobRole: '',
+    SkillLevel: '',
+    TimeAvailability: '',
+    Schedule: '',
+    Motivators: [],
+    ProgrammingLanguages: [],
+    Technologies: [],
   });
 
   const handleChange = (
@@ -65,7 +65,7 @@ const GenerateLearningPath: React.FC = () => {
     // Here you can process the formData or send it to your API
     const data = {
       ...formData,
-      userId: user.userId,
+      UserId: user.userId,
     };
     const response = await axiosInstance.post(
       'https://hoteach.azurewebsites.net/api/user-preferences',
@@ -93,14 +93,14 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="name">
+            htmlFor="Name">
             Name
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={formData.name}
+            id="Name"
+            name="Name"
+            value={formData.Name}
             onChange={handleChange}
             placeholder="Enter your full name"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -111,13 +111,13 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="ageGroup">
+            htmlFor="AgeGroup">
             Age Group
           </label>
           <select
-            id="ageGroup"
-            name="ageGroup"
-            value={formData.ageGroup}
+            id="AgeGroup"
+            name="AgeGroup"
+            value={formData.AgeGroup}
             onChange={handleChange}
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300">
             <option value="" disabled>
@@ -134,14 +134,14 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="location">
+            htmlFor="Location">
             Location
           </label>
           <input
             type="text"
-            id="location"
-            name="location"
-            value={formData.location}
+            id="Location"
+            name="Location"
+            value={formData.Location}
             onChange={handleChange}
             placeholder="Enter your city or country"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -152,13 +152,13 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="language">
+            htmlFor="Language">
             Preferred Language
           </label>
           <select
-            id="language"
-            name="language"
-            value={formData.language}
+            id="Language"
+            name="Language"
+            value={formData.Language}
             onChange={handleChange}
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300">
             <option value="" disabled>
@@ -175,14 +175,14 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="education">
+            htmlFor="Education">
             Education
           </label>
           <input
             type="text"
-            id="education"
-            name="education"
-            value={formData.education}
+            id="Education"
+            name="Education"
+            value={formData.Education}
             onChange={handleChange}
             placeholder="Enter your highest education level"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -193,13 +193,13 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="goals">
+            htmlFor="Goals">
             Learning Goals
           </label>
           <textarea
-            id="goals"
-            name="goals"
-            value={formData.goals}
+            id="Goals"
+            name="Goals"
+            value={formData.Goals}
             onChange={handleChange}
             placeholder="What do you hope to achieve?"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -214,9 +214,9 @@ const GenerateLearningPath: React.FC = () => {
             Preferred Learning Style
           </label>
           <select
-            id="learningStyle"
-            name="learningStyle"
-            value={formData.learningStyle}
+            id="LearningStyle"
+            name="LearningStyle"
+            value={formData.LearningStyle}
             onChange={handleChange}
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300">
             <option value="" disabled>
@@ -233,13 +233,13 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="pace">
+            htmlFor="Pace">
             Learning Pace
           </label>
           <select
-            id="pace"
-            name="pace"
-            value={formData.pace}
+            id="Pace"
+            name="Pace"
+            value={formData.Pace}
             onChange={handleChange}
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300">
             <option value="" disabled>
@@ -255,14 +255,14 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="jobRole">
+            htmlFor="JobRole">
             Current Job Role
           </label>
           <input
             type="text"
-            id="jobRole"
-            name="jobRole"
-            value={formData.jobRole}
+            id="JobRole"
+            name="JobRole"
+            value={formData.JobRole}
             onChange={handleChange}
             placeholder="E.g., Student, Developer, Designer"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -273,13 +273,13 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="skillLevel">
+            htmlFor="SkillLevel">
             Current Skill Level
           </label>
           <select
-            id="skillLevel"
-            name="skillLevel"
-            value={formData.skillLevel}
+            id="SkillLevel"
+            name="SkillLevel"
+            value={formData.SkillLevel}
             onChange={handleChange}
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300">
             <option value="" disabled>
@@ -300,9 +300,9 @@ const GenerateLearningPath: React.FC = () => {
           </label>
           <input
             type="text"
-            id="timeAvailability"
-            name="timeAvailability"
-            value={formData.timeAvailability}
+            id="TimeAvailability"
+            name="TimeAvailability"
+            value={formData.TimeAvailability}
             onChange={handleChange}
             placeholder="E.g., 2 hours per day"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -313,14 +313,14 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="schedule">
+            htmlFor="Schedule">
             Preferred Schedule
           </label>
           <input
             type="text"
-            id="schedule"
-            name="schedule"
-            value={formData.schedule}
+            id="Schedule"
+            name="Schedule"
+            value={formData.Schedule}
             onChange={handleChange}
             placeholder="E.g., Weekdays, Weekends, Evenings"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -336,10 +336,10 @@ const GenerateLearningPath: React.FC = () => {
           </label>
           <input
             type="text"
-            id="motivators"
-            name="motivators"
-            value={formData.motivators.join(', ')}
-            onChange={(e) => handleListChange('motivators', e.target.value)}
+            id="Motivators"
+            name="Motivators"
+            value={formData.Motivators.join(', ')}
+            onChange={(e) => handleListChange('Motivators', e.target.value)}
             placeholder="E.g., Career growth, Passion for tech"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
           />
@@ -354,11 +354,11 @@ const GenerateLearningPath: React.FC = () => {
           </label>
           <input
             type="text"
-            id="programmingLanguages"
-            name="programmingLanguages"
-            value={formData.programmingLanguages.join(', ')}
+            id="ProgrammingLanguages"
+            name="ProgrammingLanguages"
+            value={formData.ProgrammingLanguages.join(', ')}
             onChange={(e) =>
-              handleListChange('programmingLanguages', e.target.value)
+              handleListChange('ProgrammingLanguages', e.target.value)
             }
             placeholder="E.g., JavaScript, Python, Java"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
@@ -369,15 +369,15 @@ const GenerateLearningPath: React.FC = () => {
         <div>
           <label
             className="block text-red-600 font-semibold mb-2"
-            htmlFor="technologies">
+            htmlFor="Technologies">
             Technologies
           </label>
           <input
             type="text"
-            id="technologies"
-            name="technologies"
-            value={formData.technologies.join(', ')}
-            onChange={(e) => handleListChange('technologies', e.target.value)}
+            id="Technologies"
+            name="Technologies"
+            value={formData.Technologies.join(', ')}
+            onChange={(e) => handleListChange('Technologies', e.target.value)}
             placeholder="E.g., React, Node.js, AWS"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
           />

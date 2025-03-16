@@ -2,11 +2,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
 
 import { useOrigin } from '@/hooks/useOrigin';
+import { useToastNotification } from '@/hooks/useToastNotification';
 import { useUserCredentials } from '@/hooks/useUserCredentials';
 import { PageRoute } from '@/types';
 import {
   FolderKanban,
   Key,
+  LampDesk,
   Lightbulb,
   LogOut,
   Route,
@@ -14,6 +16,7 @@ import {
   User,
 } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { axiosInstance } from '../axios-interceptor/AxiosInterceptor';
 import SidebarButton from './sidebar-button/SidebarButton';
 import SidebarItem from './sidebar-item/SidebarItem';
 import SidebarLogic from './sidebar-logic/SidebarLogic';
@@ -24,9 +27,27 @@ function Sidebar() {
   const { user, isAuthenticated } = useUserCredentials();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { emitToast } = useToastNotification();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
+  };
+
+  const generatePath = async () => {
+    const response = await axiosInstance.post(
+      'https://hoteach.azurewebsites.net/api/GenerateLearningPlan',
+      { UserId: user.userId }
+    );
+
+    if (response.status === 200) {
+      console.log(response.data);
+      emitToast('Learning path generated!', 'success');
+      navigate(PageRoute.GENERATED_PATH, {
+        state: { message: response.data },
+      });
+    } else {
+      emitToast('Error generating learning path.', 'error');
+    }
   };
 
   return (
@@ -34,9 +55,14 @@ function Sidebar() {
       <div className="w-full">
         <SidebarButton
           text="Generate Path"
-          onClick={() => navigate(PageRoute.CREATE_PROJECT)}></SidebarButton>
+          onClick={() => generatePath()}></SidebarButton>
         <ul className={`flex-1 pt-2`}>
           <SidebarText text="Learning" />
+          <SidebarItem
+            icon={<LampDesk size={20} />}
+            text="Dashboard"
+            onClick={() => navigate(PageRoute.DASHBOARD)}
+          />
           <SidebarItem
             icon={<Route size={20} />}
             text="Set Preferences"

@@ -10,6 +10,7 @@ import Activation from './pages/activation/Activation';
 import Checkout from './pages/checkout/Checkout';
 import CreateProject from './pages/create-project/Createproject';
 import Dashboard from './pages/dashboard/Dashboard';
+import GeneratedPath from './pages/generated-path/GeneratedPath';
 import GenerateLearningPath from './pages/learning-path/GenerateLearningPath';
 import NotFound from './pages/not-found/NotFound';
 import Onboarding from './pages/onboarding/Onboarding';
@@ -39,6 +40,13 @@ export const AppRouter = createBrowserRouter(
           element={<GenerateLearningPath />}
           handle={{
             crumb: () => 'Generate Preferences',
+          }}
+        />
+        <Route
+          path={PageRoute.GENERATED_PATH}
+          element={<GeneratedPath />}
+          handle={{
+            crumb: () => 'Generated Path',
           }}
         />
         <Route

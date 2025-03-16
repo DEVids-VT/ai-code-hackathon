@@ -14,4 +14,5 @@ export enum PageRoute {
   ONBOARDING = '/onboarding',
   DASHBOARD = '/dashboard',
   PROJECT_DETAIL = '/dashboard/projects/:id',
+  GENERATED_PATH = '/generated-path',
 }
