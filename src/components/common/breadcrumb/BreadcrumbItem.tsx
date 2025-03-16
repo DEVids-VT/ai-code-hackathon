@@ -12,7 +12,7 @@ function BreadcrumbItem(props: BreadcrumbItemProps) {
   let liClasses = 'flex items-center';
   if (props.isCurrentPage) {
     liClasses +=
-      ' text-sm font-semibold text-indigo-800 truncate dark:text-dark-200';
+      ' text-sm font-semibold text-[#f4bb00] truncate dark:text-dark-200';
   }
 
   return (
@@ -20,7 +20,7 @@ function BreadcrumbItem(props: BreadcrumbItemProps) {
       {!props.isCurrentPage ? (
         <>
           <Link
-            className="flex items-center text-sm text-indigo-500 hover:text-indigo-800 focus:outline-none focus:text-indigo-800 dark:text-neutral-500 dark:hover:text-dark-200 dark:focus:text-dark-200"
+            className="flex items-center text-sm text-[#f48e00] hover:text-[#f4dc00] focus:outline-none focus:text-text-[#f48e00]"
             aria-current="page"
             to={props.pathname}>
             {props.crumb}

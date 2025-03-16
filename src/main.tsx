@@ -3,6 +3,6 @@ import { RouterProvider } from 'react-router';
 import { AppRouter } from './App.router.tsx';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById('app-root')!).render(
   <RouterProvider router={AppRouter} />
 );
