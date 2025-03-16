@@ -2,9 +2,6 @@ import { useUserCredentials } from '@/hooks/useUserCredentials';
 import { useCallback } from 'react';
 import { Outlet, To, useLocation } from 'react-router';
 
-const logoutPath = '/logout';
-const loginPath = '/login';
-
 type ProtectedRouteProps = {
   onlyUser: boolean;
 };

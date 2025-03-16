@@ -1,5 +1,5 @@
 import { Params, useMatches } from 'react-router';
-import BreadcrumbItem from './/BreadcrumbItem';
+import BreadcrumbItem from './BreadcrumbItem';
 
 interface IMatches {
   id: string;
