@@ -1,54 +1,67 @@
+import { axiosInstance } from '@/components/common/axios-interceptor/AxiosInterceptor';
 import FlameButton from '@/components/FlameButton';
 import ProgressIndicator from '@/components/ProgressIndicator';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { useToastNotification } from '@/hooks/useToastNotification';
+import { useUserCredentials } from '@/hooks/useUserCredentials';
+import { stripe } from '@/lib/stripe';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 const Checkout = () => {
-  const navigate = useNavigate();
+  const { user } = useUserCredentials();
   const { setStage, addCompletedStep } = useOnboarding();
-  const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(true);
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    setIsValidEmail(true);
-  };
-
-  const validateEmail = (email: string) => {
-    return /\S+@\S+\.\S+/.test(email);
-  };
+  const { emitToast } = useToastNotification();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!validateEmail(email)) {
-      setIsValidEmail(false);
-      return;
-    }
-
     setIsLoading(true);
 
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsLoading(false);
+    const payment = async () => {
+      try {
+        const response = await axiosInstance.post(
+          'https://hoteach.azurewebsites.net/api/CreatePaymentSession?',
+          {
+            UserId: user.userId,
+            Email: user.email,
+            Username: user.name,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
-      // Update onboarding state
-      addCompletedStep('checkout');
-      setStage('activation');
+        const session = response.data;
+        console.log(session);
+        // Redirect to Stripe Checkout
 
-      // Show success toast
-      // toast.success(
-      //   'Payment successful! Check your email for the activation link.',
-      //   {
-      //     duration: 5000,
-      //   }
-      // );
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
 
-      // Navigate to activation page
-      navigate('/activate');
-    }, 2000);
+        if (error) {
+          emitToast('Stripe Checkout Error:', 'error');
+        } else {
+          emitToast(
+            'Payment successful! Check your email for the activation link.',
+            'success'
+          );
+
+          addCompletedStep('checkout');
+          setStage('activation');
+        }
+      } catch (error) {
+        emitToast('Error creating payment session:', 'error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    payment();
   };
 
   const steps = [

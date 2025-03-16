@@ -1,10 +1,12 @@
-import { IUser } from '@/types';
+import { IUser, UserRole } from '@/types';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export interface IUseUserCredentialsReturnData {
   user: IUser;
   isAuthenticated: boolean;
 }
+
+const DOMAIN = 'https://hotteach.auth0.com';
 
 export const useUserCredentials = (): IUseUserCredentialsReturnData => {
   const { user, isAuthenticated } = useAuth0();
@@ -19,7 +21,7 @@ export const useUserCredentials = (): IUseUserCredentialsReturnData => {
       // dateOfBirth: user?.[`${DOMAIN}/date_of_birth`] as string,
       // fullName: user?.[`${DOMAIN}/full_name`] as string,
       // phoneNumber: user?.[`${DOMAIN}/phone_number`] as string,
-      // roles: user?.[`${DOMAIN}/roles`] as UserRole[],
+      roles: user?.[`${DOMAIN}/roles`] as UserRole[],
     },
     isAuthenticated,
   };
