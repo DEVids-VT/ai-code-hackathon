@@ -1,6 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromChildren,
+  Navigate,
   Route,
 } from 'react-router';
 import App from './App';
@@ -9,12 +10,11 @@ import Activation from './pages/activation/Activation';
 import Checkout from './pages/checkout/Checkout';
 import CreateProject from './pages/create-project/Createproject';
 import Dashboard from './pages/dashboard/Dashboard';
-import Landing from './pages/landing/Landing';
-import LearningPathForm from './pages/learning-path/LearningPath';
 import NotFound from './pages/not-found/NotFound';
 import Onboarding from './pages/onboarding/Onboarding';
 import ProjectDetail from './pages/project-detail/ProjectDetail';
 import { PageRoute, UserRole } from './types';
+import GenerateLearningPath from './pages/learning-path/GenerateLearningPath';
 
 export const AppRouter = createBrowserRouter(
   createRoutesFromChildren(
@@ -26,7 +26,7 @@ export const AppRouter = createBrowserRouter(
       }}>
       {/* Only activated users can access these pages */}
       <Route element={<ProtectedRoute requiredRoles={[UserRole.ACTIVATED]} />}>
-        <Route index element={<Landing />} />
+        <Route index element={<Navigate to={PageRoute.DASHBOARD} />} />
         <Route
           path={PageRoute.CREATE_PROJECT}
           element={<CreateProject />}
@@ -36,7 +36,7 @@ export const AppRouter = createBrowserRouter(
         />
         <Route
           path={PageRoute.LEARNING_PATH}
-          element={<LearningPathForm />}
+          element={<GenerateLearningPath />}
           handle={{
             crumb: () => 'Learning Path',
           }}
