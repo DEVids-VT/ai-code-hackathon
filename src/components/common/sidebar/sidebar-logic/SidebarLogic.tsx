@@ -11,7 +11,10 @@ function SidebarLogic({ children }: PropsWithChildren) {
   const [expanded, setExpanded] = useState<boolean>(true);
   const { user } = useUserCredentials();
 
-  const routeToUserProfile = PageRoute.LANDING.replace(':userId', user.userId);
+  const routeToUserProfile = PageRoute.USER_PROFILE.replace(
+    ':userId',
+    user.userId
+  );
 
   return (
     <section
@@ -32,7 +35,7 @@ function SidebarLogic({ children }: PropsWithChildren) {
             />
             <button
               onClick={() => setExpanded((curr) => !curr)}
-              className={`p-1.5  ${
+              className={`p-1.5 cursor-pointer  ${
                 expanded
                   ? 'rounded-lg relative'
                   : 'rounded-r-lg absolute top-5 sm:top-auto w-9 sm:w-auto sm:relative'

@@ -45,7 +45,7 @@ function SidebarItem({ icon, text, active, alert, onClick }: SidebarItemProps) {
         <div
           className={`z-50
           absolute left-full rounded-md px-2 py-1 ml-6
-          bg-indigo-100 text-indigo-800 text-sm
+          bg-[#ffe505] text-gray-800 text-sm
           dark:bg-dark-700 dark:text-dark-300
           invisible opacity-20 -translate-x-3 transition-all
           group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
