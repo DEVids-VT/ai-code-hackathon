@@ -128,7 +128,11 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ onSubmit }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className="guide-button-primary w-full">
+          className={`guide-button-primary w-full py-3 px-6 rounded-lg transition duration-300 ease-in-out transform ${
+            isLoading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-yellow-300 cursor-pointer font-medium'
+          }`}>
           {isLoading ? (
             <div className="flex items-center justify-center">
               <svg
@@ -151,7 +155,7 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ onSubmit }) => {
               Analyzing...
             </div>
           ) : (
-            'Get Feedback'
+            'Create Project'
           )}
         </button>
 
