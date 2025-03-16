@@ -22,7 +22,7 @@ const Checkout = () => {
     const payment = async () => {
       try {
         const response = await axiosInstance.post(
-          'https://hoteach.azurewebsites.net/api/CreatePaymentSession?',
+          'https://hoteach.azurewebsites.net/api/PaymentSession?',
           {
             UserId: user.userId,
             Email: user.email,
@@ -40,7 +40,7 @@ const Checkout = () => {
         // Redirect to Stripe Checkout
 
         const { error } = await stripe.redirectToCheckout({
-          sessionId: session.id,
+          sessionId: session.sessionId,
         });
 
         if (error) {

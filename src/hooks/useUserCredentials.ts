@@ -10,6 +10,7 @@ const DOMAIN = 'https://hotteach.auth0.com';
 
 export const useUserCredentials = (): IUseUserCredentialsReturnData => {
   const { user, isAuthenticated } = useAuth0();
+  console.log(user);
 
   return {
     user: {
