@@ -23,7 +23,7 @@ function SidebarLogic({ children }: PropsWithChildren) {
           ? 'absolute w-screen md:sticky md:w-80'
           : ' w-0  sm:w-auto sticky'
       }  top-0  z-40`}>
-      <nav className="h-full flex flex-col justify-between bg-white dark:bg-dark-950 sm:border-r dark:border-r-dark-800 shadow-sm">
+      <nav className="h-full flex flex-col justify-between bg-white dark:bg-dark-950  shadow-sm">
         <div className="h-full flex flex-col justify-between">
           <div
             className={
@@ -43,21 +43,21 @@ function SidebarLogic({ children }: PropsWithChildren) {
                 expanded
                   ? 'rounded-lg relative'
                   : 'rounded-r-lg absolute top-5 sm:top-auto w-9 sm:w-auto sm:relative'
-              } left-0 bg-gray-50 hover:bg-gray-100 dark:bg-dark-900 dark:hover:bg-dark-950 sm:rounded-lg sm:bg-gray-50 sm:hover:bg-gray-100 dark:sm:bg-dark-900 dark:sm:hover:bg-dark-700`}>
+              } left-0 bg-gray-50 hover:bg-gray-100 sm:rounded-lg sm:bg-gray-50 sm:hover:bg-gray-100`}>
               {expanded ? <ChevronFirst /> : <ChevronLast />}
             </button>
           </div>
 
           <div
-            className={`px-3 pt-2 border-t h-full flex ${
+            className={`px-3 pt-2 border-t border-gray-100 bg-white h-full flex ${
               expanded ? 'flex' : 'hidden sm:flex'
-            }  flex-col justify-between dark:border-t-dark-800`}>
+            }  flex-col justify-between`}>
             <SidebarContext.Provider value={expanded}>
               {children}
             </SidebarContext.Provider>
           </div>
           <div
-            className={`border-t dark:border-t-dark-800 bg-white dark:bg-dark-950 p-3 pl-4 ${
+            className={`border-t border-gray-100 bg-white p-3 pl-4 ${
               expanded ? 'flex' : 'hidden sm:flex'
             }`}>
             <Link to={routeToUserProfile}>

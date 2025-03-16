@@ -4,7 +4,7 @@ import ProgressIndicator from '@/components/ProgressIndicator';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { useToastNotification } from '@/hooks/useToastNotification';
 import { useUserCredentials } from '@/hooks/useUserCredentials';
-import { stripe } from '@/lib/stripe';
+import { stripePromise } from '@/lib/stripe';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -36,9 +36,7 @@ const Checkout = () => {
         );
 
         const session = response.data;
-        console.log(session);
-        // Redirect to Stripe Checkout
-
+        const stripe = await stripePromise;
         const { error } = await stripe.redirectToCheckout({
           sessionId: session.sessionId,
         });
