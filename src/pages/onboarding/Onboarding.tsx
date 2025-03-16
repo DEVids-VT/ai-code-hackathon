@@ -4,6 +4,7 @@ import ProgressIndicator from '@/components/ProgressIndicator';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { useToastNotification } from '@/hooks/useToastNotification';
 import { PageRoute } from '@/types';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -20,6 +21,7 @@ const Onboarding = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { emitToast } = useToastNotification();
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     if (stage !== 'preferences') {
@@ -45,8 +47,8 @@ const Onboarding = () => {
     setIsSubmitting(true);
 
     // Simulate processing
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setTimeout(async () => {
+      await getAccessTokenSilently({ cacheMode: 'off' });
       addCompletedStep('preferences');
       setStage('complete');
       emitToast(
