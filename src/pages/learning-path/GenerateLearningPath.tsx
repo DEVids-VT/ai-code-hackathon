@@ -1,4 +1,7 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { axiosInstance } from '@/components/common/axios-interceptor/AxiosInterceptor';
+import { useToastNotification } from '@/hooks/useToastNotification';
+import { useUserCredentials } from '@/hooks/useUserCredentials';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 interface UserPreferences {
   userId: string;
@@ -20,6 +23,9 @@ interface UserPreferences {
 }
 
 const GenerateLearningPath: React.FC = () => {
+  const { user } = useUserCredentials();
+  const { emitToast } = useToastNotification();
+
   const [formData, setFormData] = useState<UserPreferences>({
     userId: '',
     name: '',
@@ -54,16 +60,29 @@ const GenerateLearningPath: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Here you can process the formData or send it to your API
-    console.log('User Preferences:', formData);
+    const data = {
+      ...formData,
+      userId: user.userId,
+    };
+    const response = await axiosInstance.post(
+      'https://hoteach.azurewebsites.net/api/user-preferences',
+      data
+    );
+
+    if (response.status === 200) {
+      emitToast('Saved preferences!', 'success');
+    } else {
+      emitToast('Error submitting user preferences.', 'error');
+    }
   };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-3xl font-bold text-center mb-4 text-yellow-300">
-        HotEACH: Generate Learning Path
+        HotEACH: Save Preferences
       </h2>
       <p className="text-center text-gray-600 mb-8">
         Transforming aspiring developers into independent creators by combining
@@ -369,7 +388,7 @@ const GenerateLearningPath: React.FC = () => {
           <button
             type="submit"
             className="bg-yellow-300 hover:bg-yellow-300 text-white font-bold py-3 px-8 rounded transition duration-300">
-            Generate Path
+            Create Preferences
           </button>
         </div>
       </form>

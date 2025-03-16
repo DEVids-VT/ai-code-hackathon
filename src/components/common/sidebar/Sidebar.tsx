@@ -33,13 +33,13 @@ function Sidebar() {
     <SidebarLogic>
       <div className="w-full">
         <SidebarButton
-          text="Create Project"
+          text="Generate Path"
           onClick={() => navigate(PageRoute.CREATE_PROJECT)}></SidebarButton>
         <ul className={`flex-1 pt-2`}>
           <SidebarText text="Learning" />
           <SidebarItem
             icon={<Route size={20} />}
-            text="Learning Path"
+            text="Set Preferences"
             onClick={() => navigate(PageRoute.LEARNING_PATH)}
           />
           <SidebarItem
