@@ -5,6 +5,7 @@ import {
 } from 'react-router';
 import App from './App';
 import ProtectedRoute from './components/common/auth/protected-route/ProtectedRoute';
+import Activation from './pages/activation/Activation';
 import Checkout from './pages/checkout/Checkout';
 import CreateProject from './pages/create-project/Createproject';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -66,10 +67,18 @@ export const AppRouter = createBrowserRouter(
         />
 
         <Route
+          path={PageRoute.ACTIVATION}
+          element={<Activation />}
+          handle={{
+            crumb: () => 'Activation',
+          }}
+        />
+
+        <Route
           path={PageRoute.ONBOARDING}
           element={<Onboarding />}
           handle={{
-            crumb: () => 'Dashboard',
+            crumb: () => 'Onboarding',
           }}
         />
       </Route>
