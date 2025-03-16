@@ -25,11 +25,15 @@ function SidebarLogic({ children }: PropsWithChildren) {
       }  top-0  z-40`}>
       <nav className="h-full flex flex-col justify-between bg-white dark:bg-dark-950 sm:border-r dark:border-r-dark-800 shadow-sm">
         <div className="h-full flex flex-col justify-between">
-          <div className="p-4 flex justify-between items-center">
+          <div
+            className={
+              'p-4 flex justify-between items-center ' +
+              (expanded ? 'py-1' : 'py-3')
+            }>
             <img
               src={logo}
               className={`overflow-hidden transition-all ${
-                expanded ? 'w-42' : 'w-0'
+                expanded ? 'w-32' : 'w-0'
               }`}
               alt=""
             />

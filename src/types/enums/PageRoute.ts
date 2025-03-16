@@ -9,4 +9,9 @@ export enum PageRoute {
   RESOURCE_ACCESS = '/resource-access',
   LEARNING_PATH = '/learning-path',
   USER_PROFILE = '/profile/:userId',
+  CHECKOUT = '/checkout',
+  ACTIVATION = '/activate',
+  ONBOARDING = '/onboarding',
+  DASHBOARD = '/dashboard',
+  PROJECT_DETAIL = '/dashboard/projects/:id',
 }

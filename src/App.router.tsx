@@ -4,8 +4,10 @@ import {
   Route,
 } from 'react-router';
 import App from './App';
+import Dashboard from './pages/dashboard/Dashboard';
 import Landing from './pages/landing/Landing';
 import NotFound from './pages/not-found/NotFound';
+import ProjectDetail from './pages/project-detail/ProjectDetail';
 import { PageRoute } from './types';
 
 export const AppRouter = createBrowserRouter(
@@ -14,16 +16,27 @@ export const AppRouter = createBrowserRouter(
       path={PageRoute.LANDING}
       element={<App />}
       handle={{
-        crumb: () => 'Something',
+        crumb: () => 'Home',
       }}>
       {/* Everyone */}
+      <Route index element={<Landing />} />
+
       <Route
-        index
-        element={<Landing />}
+        path={PageRoute.DASHBOARD}
         handle={{
-          crumb: () => 'Landing',
-        }}
-      />
+          crumb: () => 'Dashboard',
+        }}>
+        <Route index element={<Dashboard />} />
+        <Route
+          path={PageRoute.PROJECT_DETAIL}
+          element={<ProjectDetail />}
+          handle={{
+            crumb: () => 'Project Detail',
+          }}
+        />
+      </Route>
+
+      <Route path="*" element={<NotFound />} />
 
       <Route
         path="*"

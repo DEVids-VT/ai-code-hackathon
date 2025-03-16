@@ -21,24 +21,25 @@ function Breadcrumb() {
   );
 
   return (
-    <ol className="md:flex items-center whitespace-nowrap md:absolute md:top-0 hidden">
-      {filteredMatches.map((match, i, arr) => {
-        const crumb = (match.handle as HandleType).crumb(
-          match.data as string | undefined
-        );
+    <nav className="flex-1 p-2">
+      <ol className="md:flex items-center whitespace-nowrap hidden">
+        {filteredMatches.map((match, i, arr) => {
+          const crumb = (match.handle as HandleType).crumb(
+            match.data as string | undefined
+          );
 
-        return (
-          <BreadcrumbItem
-            key={match.id}
-            pathname={match.pathname}
-            crumb={crumb}
-            isCurrentPage={i === arr.length - 1}
-            isOne={arr.length === 1}
-          />
-        );
-      })}
-    </ol>
+          return (
+            <BreadcrumbItem
+              key={match.id}
+              pathname={match.pathname}
+              crumb={crumb}
+              isCurrentPage={i === arr.length - 1}
+              isOne={arr.length === 1}
+            />
+          );
+        })}
+      </ol>
+    </nav>
   );
 }
-
 export default Breadcrumb;

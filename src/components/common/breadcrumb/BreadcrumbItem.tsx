@@ -8,7 +8,7 @@ interface BreadcrumbItemProps {
   isOne: boolean;
 }
 
-function BreadcrumbItem(props: BreadcrumbItemProps) {
+export default function BreadcrumbItem(props: BreadcrumbItemProps) {
   let liClasses = 'flex items-center';
   if (props.isCurrentPage) {
     liClasses +=
@@ -45,5 +45,3 @@ function BreadcrumbItem(props: BreadcrumbItemProps) {
     </li>
   );
 }
-
-export default BreadcrumbItem;
