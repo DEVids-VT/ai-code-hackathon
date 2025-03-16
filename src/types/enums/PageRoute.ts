@@ -10,7 +10,7 @@ export enum PageRoute {
   LEARNING_PATH = '/learning-path',
   USER_PROFILE = '/profile/:userId',
   CHECKOUT = '/checkout',
-  ACTIVATION = '/activate',
+  ACTIVATION = '/activation',
   ONBOARDING = '/onboarding',
   DASHBOARD = '/dashboard',
   PROJECT_DETAIL = '/dashboard/projects/:id',
