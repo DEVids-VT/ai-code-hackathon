@@ -36,8 +36,6 @@ const Checkout = () => {
         );
 
         const session = response.data;
-        console.log(session);
-        // Redirect to Stripe Checkout
 
         const { error } = await stripe.redirectToCheckout({
           sessionId: session.sessionId,
