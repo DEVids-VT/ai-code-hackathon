@@ -1,8 +1,9 @@
-import FadeIn from '@/components/animations/FadeIn';
 import FlameButton from '@/components/FlameButton';
 import ProgressIndicator from '@/components/ProgressIndicator';
 import { useOnboarding } from '@/contexts/OnboardingContext';
-import { useState } from 'react';
+import { useToastNotification } from '@/hooks/useToastNotification';
+import { PageRoute } from '@/types';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 const Onboarding = () => {
@@ -17,13 +18,13 @@ const Onboarding = () => {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { emitToast } = useToastNotification();
 
-  // Redirect if not in the correct stage
-  // useEffect(() => {
-  //   if (stage !== 'preferences') {
-  //     navigate('/');
-  //   }
-  // }, [stage, navigate]);
+  useEffect(() => {
+    if (stage !== 'preferences') {
+      navigate('/');
+    }
+  }, [stage, navigate]);
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
@@ -45,18 +46,13 @@ const Onboarding = () => {
     // Simulate processing
     setTimeout(() => {
       setIsSubmitting(false);
-
-      // Update onboarding state
       addCompletedStep('preferences');
       setStage('complete');
-
-      // Show success toast
-      // toast.success("Your learning profile is ready! Welcome to HotTeach.", {
-      //   duration: 3000,
-      // });
-
-      // Navigate to dashboard
-      navigate('/dashboard');
+      emitToast(
+        'Your learning profile is ready! Welcome to HotTeach.',
+        'success'
+      );
+      navigate(PageRoute.DASHBOARD);
     }, 2000);
   };
 
@@ -78,42 +74,6 @@ const Onboarding = () => {
   ];
 
   const onboardingSteps = [
-    {
-      title: 'Personal Information',
-      fields: (
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-2">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={userPreferences.name}
-              onChange={(e) => updateUserPreferences({ name: e.target.value })}
-              className="w-full p-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-hotteach-red/30"
-              placeholder="John Doe"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={userPreferences.email}
-              onChange={(e) => updateUserPreferences({ email: e.target.value })}
-              className="w-full p-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-hotteach-red/30"
-              placeholder="you@example.com"
-              required
-            />
-          </div>
-        </div>
-      ),
-    },
     {
       title: 'Your Goals',
       fields: (
@@ -291,58 +251,54 @@ const Onboarding = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-black">
       <div className="flex-1 flex flex-col items-center justify-center py-10 px-4">
         <div className="w-full max-w-md">
-          <FadeIn>
-            <div className="text-center mb-8">
-              <img
-                src="/lovable-uploads/5bd49670-0867-4c7c-8190-423e52c722ce.png"
-                alt="HoTeach Logo"
-                className="h-10 object-contain mx-auto mb-6"
-              />
-              <ProgressIndicator steps={steps} className="mb-10" />
-              <h1 className="text-3xl font-bold mb-2">Set Up Your Profile</h1>
-              <p className="text-muted-foreground">
-                Help us create your personalized learning experience
-              </p>
+          <div className="text-center mb-8">
+            <img
+              src="/lovable-uploads/5bd49670-0867-4c7c-8190-423e52c722ce.png"
+              alt="HoTeach Logo"
+              className="h-10 object-contain mx-auto mb-6"
+            />
+            <ProgressIndicator steps={steps} className="mb-10" />
+            <h1 className="text-3xl font-bold mb-2">Set Up Your Profile</h1>
+            <p className="text-muted-foreground">
+              Help us create your personalized learning experience
+            </p>
+          </div>
+
+          <div className="glass-card rounded-xl p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold">
+                {onboardingSteps[currentStep].title}
+              </h2>
+              <span className="text-sm text-muted-foreground">
+                Step {currentStep + 1} of {onboardingSteps.length}
+              </span>
             </div>
-          </FadeIn>
 
-          <FadeIn delay={200}>
-            <div className="glass-card rounded-xl p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold">
-                  {onboardingSteps[currentStep].title}
-                </h2>
-                <span className="text-sm text-muted-foreground">
-                  Step {currentStep + 1} of {onboardingSteps.length}
-                </span>
-              </div>
+            {onboardingSteps[currentStep].fields}
 
-              {onboardingSteps[currentStep].fields}
+            <div className="flex items-center justify-between mt-8">
+              <button
+                onClick={handleBack}
+                disabled={currentStep === 0}
+                className={`text-sm font-medium ${
+                  currentStep === 0
+                    ? 'text-muted-foreground cursor-not-allowed'
+                    : 'text-hotteach-red hover:text-hotteach-red/80'
+                }`}>
+                Back
+              </button>
 
-              <div className="flex items-center justify-between mt-8">
-                <button
-                  onClick={handleBack}
-                  disabled={currentStep === 0}
-                  className={`text-sm font-medium ${
-                    currentStep === 0
-                      ? 'text-muted-foreground cursor-not-allowed'
-                      : 'text-hotteach-red hover:text-hotteach-red/80'
-                  }`}>
-                  Back
-                </button>
-
-                <FlameButton
-                  onClick={handleNext}
-                  variant="secondary"
-                  size="md"
-                  isLoading={isSubmitting}>
-                  {currentStep < onboardingSteps.length - 1
-                    ? 'Next'
-                    : 'Complete Profile'}
-                </FlameButton>
-              </div>
+              <FlameButton
+                onClick={handleNext}
+                variant="secondary"
+                size="md"
+                isLoading={isSubmitting}>
+                {currentStep < onboardingSteps.length - 1
+                  ? 'Next'
+                  : 'Complete Profile'}
+              </FlameButton>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </div>
     </div>
