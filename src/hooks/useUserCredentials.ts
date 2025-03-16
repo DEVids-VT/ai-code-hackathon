@@ -10,6 +10,7 @@ const DOMAIN = 'https://hoteachclaims.com';
 
 export const useUserCredentials = (): IUseUserCredentialsReturnData => {
   const { user, isAuthenticated } = useAuth0();
+  console.log(user);
 
   return {
     user: {
