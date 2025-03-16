@@ -11,6 +11,8 @@ import NotFound from './pages/not-found/NotFound';
 import Onboarding from './pages/onboarding/Onboarding';
 import ProjectDetail from './pages/project-detail/ProjectDetail';
 import { PageRoute } from './types';
+import CreateProject from './pages/create-project/Createproject';
+import LearningPathForm from './pages/learning-path/LearningPath';
 
 export const AppRouter = createBrowserRouter(
   createRoutesFromChildren(
@@ -22,7 +24,20 @@ export const AppRouter = createBrowserRouter(
       }}>
       {/* Everyone */}
       <Route index element={<Landing />} />
-
+      <Route
+        path={PageRoute.CREATE_PROJECT}
+        element={<CreateProject />}
+        handle={{
+          crumb: () => 'Create Project',
+        }}
+      />
+      <Route
+        path={PageRoute.LEARNING_PATH}
+        element={<LearningPathForm />}
+        handle={{
+          crumb: () => 'Learning Path',
+        }}
+      />
       <Route
         path={PageRoute.CHECKOUT}
         element={<Checkout />}
